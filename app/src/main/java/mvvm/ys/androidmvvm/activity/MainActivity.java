@@ -1,39 +1,40 @@
 package mvvm.ys.androidmvvm.activity;
 
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.view.View;
 
 import mvvm.ys.androidmvvm.R;
-import mvvm.ys.androidmvvm.databinding.ActivityMainBinding;
+import mvvm.ys.androidmvvm.viewmodel.MainViewModel;
+import mvvm.ys.mvvmapp.activity.ViewModelActivity;
+import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ViewModelActivity {
 
-    ActivityMainBinding mainBinding;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    @Nullable
+    @Override
+    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
+        mainViewModel = new MainViewModel(savedViewModelState);
+        return mainViewModel;
     }
 
     public void onClickButtonClicks(View view) {
-        startActivity(new Intent(this, ClickCountActivity.class));
+        mainViewModel.onClickButtonClicks(this);
     }
 
     public void onClickButtonRecyclerView(View view) {
-        startActivity(new Intent(this, AndroidVersionsActivity.class));
+        mainViewModel.onClickButtonRecyclerView(this);
     }
 
     public void onClickAlbertLee(View view) {
-        try {
-            Intent intent = Intent.parseUri(getString(R.string.twitter_url), 0);
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mainViewModel.onClickHiBrianLee(this);
     }
 }
