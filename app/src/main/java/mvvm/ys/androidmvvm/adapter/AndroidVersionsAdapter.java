@@ -1,7 +1,7 @@
 package mvvm.ys.androidmvvm.adapter;
 
+import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,34 +10,27 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import mvvm.ys.androidmvvm.R;
+import mvvm.ys.androidmvvm.databinding.ItemAndroidVersionBinding;
 import mvvm.ys.androidmvvm.model.AndroidVersion;
+import mvvm.ys.androidmvvm.viewmodel.AndroidVersionItemViewModel;
+import mvvm.ys.mvvmapp.adapter.RecyclerViewAdapter;
 
-public class AndroidVersionsAdapter extends RecyclerView.Adapter<AndroidVersionsAdapter.AndroidVersionViewHolder>
-implements View.OnClickListener {
+public class AndroidVersionsAdapter extends RecyclerViewAdapter<AndroidVersion, AndroidVersionItemViewModel> {
 
     private final ArrayList<AndroidVersion> items = new ArrayList<>();
 
     @NonNull
     @Override
-    public AndroidVersionsAdapter.AndroidVersionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public ItemViewHolder<AndroidVersion, AndroidVersionItemViewModel> onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_android_version, parent, false);
-        itemView.setOnClickListener(this);
-        return new AndroidVersionViewHolder(itemView);
-    }
 
-    @Override
-    public void onBindViewHolder(@NonNull AndroidVersionsAdapter.AndroidVersionViewHolder holder, int position) {
-        AndroidVersion item = items.get(position);
-        holder.itemView.setTag(position);
-        holder.itemView.setSelected(item.isSelected());
-        holder.version.setText(item.getVersion());
-        holder.codeName.setText(item.getCodeName());
-    }
+        AndroidVersionItemViewModel viewModel = new AndroidVersionItemViewModel();
 
-    @Override
-    public int getItemCount() {
-        return items.size();
+        ItemAndroidVersionBinding binding = ItemAndroidVersionBinding.bind(itemView);
+        binding.setViewModel(viewModel);
+
+        return new AndroidVersionViewHolder(itemView, binding, viewModel);
     }
 
     public void setItems(ArrayList<AndroidVersion> newItems) {
@@ -50,24 +43,19 @@ implements View.OnClickListener {
         return items;
     }
 
-    @Override
-    public void onClick(View view) {
-        int position = (int) view.getTag();
-
-        AndroidVersion item = items.get(position);
-        item.toggleSelected();
-        notifyItemChanged(position);
-    }
-
-    static class AndroidVersionViewHolder extends RecyclerView.ViewHolder {
+    static class AndroidVersionViewHolder extends ItemViewHolder<AndroidVersion, AndroidVersionItemViewModel> {
         TextView version;
         TextView codeName;
 
-        public AndroidVersionViewHolder(View itemView) {
-            super(itemView);
+        public AndroidVersionViewHolder(View itemView, ViewDataBinding binding, AndroidVersionItemViewModel viewModel) {
+            super(itemView, binding, viewModel);
 
             version = itemView.findViewById(R.id.version);
             codeName = itemView.findViewById(R.id.codeName);
+        }
+
+        void onClickVersionItem() {
+            viewModel.onClick();
         }
     }
 }
