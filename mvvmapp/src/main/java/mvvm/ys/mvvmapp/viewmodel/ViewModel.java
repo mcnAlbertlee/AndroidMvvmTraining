@@ -1,6 +1,5 @@
 package mvvm.ys.mvvmapp.viewmodel;
 
-import android.arch.lifecycle.Lifecycle;
 import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
