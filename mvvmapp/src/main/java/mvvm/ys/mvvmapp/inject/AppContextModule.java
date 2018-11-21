@@ -9,11 +9,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class AppModule {
+public class AppContextModule {
 
     private final Context appContext;
 
-    public AppModule(Application application) {
+    public AppContextModule(Application application) {
         appContext = application;
     }
 
