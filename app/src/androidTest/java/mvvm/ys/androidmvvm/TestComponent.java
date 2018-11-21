@@ -1,5 +1,6 @@
 package mvvm.ys.androidmvvm;
 
+
 import javax.inject.Singleton;
 
 import dagger.Component;
