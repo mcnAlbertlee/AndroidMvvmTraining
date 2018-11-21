@@ -1,23 +1,27 @@
 package mvvm.ys.androidmvvm.viewmodel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.Bindable;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.BR;
+import mvvm.ys.androidmvvm.R;
+import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public class ClickCountViewModel extends ViewModel {
     private final Context appContext;
     int clicks;
 
-    public ClickCountViewModel(Context context, @Nullable State savedInstanceState) {
-        super(savedInstanceState);
+    public ClickCountViewModel(Context context,
+                               @NonNull ActivityComponent activityComponent,
+                               @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
+
         appContext = context.getApplicationContext();
+
         if (savedInstanceState instanceof ClickCountState) {
             clicks = ((ClickCountState) savedInstanceState).clicks;
         }
@@ -38,10 +42,9 @@ public class ClickCountViewModel extends ViewModel {
         notifyPropertyChanged(BR.clickCountText);
     }
 
-    public void onClickHiBrianLee(Activity activity) {
+    public void onClickHiBrianLee() {
         try {
-            Intent intent = Intent.parseUri(activity.getString(R.string.twitter_url), 0);
-            activity.startActivity(intent);
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
         } catch (Exception e) {
             e.printStackTrace();
         }

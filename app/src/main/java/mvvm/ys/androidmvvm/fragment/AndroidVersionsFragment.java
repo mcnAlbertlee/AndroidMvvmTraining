@@ -12,6 +12,7 @@ import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.databinding.FragmentAndroidVersionBinding;
 import mvvm.ys.androidmvvm.viewmodel.AndroidVersionsViewModel;
 import mvvm.ys.mvvmapp.fragment.ViewModelFragment;
+import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public class AndroidVersionsFragment extends ViewModelFragment {
@@ -21,18 +22,24 @@ public class AndroidVersionsFragment extends ViewModelFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FragmentAndroidVersionBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_android_version, container,false);
-        binding.setViewModel(androidVersionsViewModel);
+        View root = inflater.inflate(R.layout.fragment_android_version, container, false);
 
-        return binding.getRoot();
+        return root;
     }
 
-    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        androidVersionsViewModel = new AndroidVersionsViewModel(getContext(), savedViewModelState);
+    protected ViewModel createAndBindViewModel(View root,
+                                               @NonNull ActivityComponent activityComponent,
+                                               @Nullable ViewModel.State savedViewModelState) {
+        androidVersionsViewModel = new AndroidVersionsViewModel(getContext(), activityComponent,
+                savedViewModelState);
+
+        FragmentAndroidVersionBinding binding = DataBindingUtil.bind(root);
+        binding.setViewModel(androidVersionsViewModel);
+
         return androidVersionsViewModel;
     }
 
     public void onClickHiBrianLee(View view) {
-        androidVersionsViewModel.onClickHiBrianLee(getActivity());
+        androidVersionsViewModel.onClickHiBrianLee();
     }
 }

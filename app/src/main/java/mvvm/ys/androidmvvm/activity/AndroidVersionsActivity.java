@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.fragment.AndroidVersionsFragment;
+import mvvm.ys.mvvmapp.activity.ViewModelActivity;
 
-public class AndroidVersionsActivity extends AppCompatActivity {
+public class AndroidVersionsActivity extends ViewModelActivity {
     private static final String TAG_VERSION_FRAGMENT = "versionFragment";
 
     @Override

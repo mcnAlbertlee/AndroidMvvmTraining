@@ -1,9 +1,8 @@
 package mvvm.ys.androidmvvm.viewmodel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +13,7 @@ import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.adapter.AndroidVersionsAdapter;
 import mvvm.ys.androidmvvm.model.AndroidVersion;
 import mvvm.ys.mvvmapp.adapter.RecyclerViewAdapter;
+import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.RecyclerViewViewModel;
 
 public class AndroidVersionsViewModel extends RecyclerViewViewModel {
@@ -21,8 +21,9 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
     private final Context appContext;
     AndroidVersionsAdapter adapter;
 
-    public AndroidVersionsViewModel(Context context, @Nullable State savedInstanceState) {
-        super(savedInstanceState);
+    public AndroidVersionsViewModel(Context context, @NonNull ActivityComponent activityComponent,
+                                    @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
 
         appContext = context.getApplicationContext();
         ArrayList<AndroidVersion> versions;
@@ -33,7 +34,7 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
             versions = getVersions();
         }
 
-        adapter = new AndroidVersionsAdapter();
+        adapter = new AndroidVersionsAdapter(activityComponent);
         adapter.setItems(versions);
     }
 
@@ -52,10 +53,9 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
         return new AndroidVersionsState(this);
     }
 
-    public void onClickHiBrianLee(Activity activity) {
+    public void onClickHiBrianLee() {
         try {
-            Intent intent = Intent.parseUri(activity.getString(R.string.twitter_url), 0);
-            activity.startActivity(intent);
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
         } catch (Exception e) {
             e.printStackTrace();
         }
