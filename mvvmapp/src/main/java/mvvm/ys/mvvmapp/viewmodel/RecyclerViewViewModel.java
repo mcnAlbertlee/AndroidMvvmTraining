@@ -2,10 +2,12 @@ package mvvm.ys.mvvmapp.viewmodel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import mvvm.ys.mvvmapp.adapter.RecyclerViewAdapter;
+import mvvm.ys.mvvmapp.inject.ActivityComponent;
 
 public abstract class RecyclerViewViewModel extends ViewModel {
 
@@ -14,8 +16,10 @@ public abstract class RecyclerViewViewModel extends ViewModel {
     protected abstract RecyclerViewAdapter getAdapter();
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 
-    public RecyclerViewViewModel(@Nullable State savedInstanceState) {
-        super(savedInstanceState);
+
+    public RecyclerViewViewModel(@NonNull ActivityComponent activityComponent,
+                                 @Nullable State savedInstanceState) {
+        super(activityComponent, savedInstanceState);
         if (savedInstanceState instanceof RecyclerViewViewModelState) {
             savedLayoutManagerState =
                     ((RecyclerViewViewModelState) savedInstanceState).layoutManagerState;

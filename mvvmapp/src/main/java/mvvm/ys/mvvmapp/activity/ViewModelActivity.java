@@ -4,19 +4,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import mvvm.ys.mvvmapp.inject.ActivityComponent;
+import mvvm.ys.mvvmapp.inject.ActivityModule;
+import mvvm.ys.mvvmapp.inject.DaggerActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public abstract class ViewModelActivity extends AppCompatActivity {
 
     private static final String EXTRA_VIEW_MODEL_STATE = "viewModelState";
-    private ViewModel viewModel;
 
-    @Nullable
-    protected abstract ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState);
+    private ActivityComponent activityComponent;
+    private ViewModel viewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        activityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .build();
+
 
         ViewModel.State savedViewModelState = null;
         if(savedInstanceState != null) {
@@ -24,6 +31,11 @@ public abstract class ViewModelActivity extends AppCompatActivity {
         }
 
         viewModel = createViewModel(savedViewModelState);
+    }
+
+    @Nullable
+    protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
+        return null;
     }
 
     @Override
@@ -51,5 +63,9 @@ public abstract class ViewModelActivity extends AppCompatActivity {
         if(viewModel != null) {
             viewModel.onStop();
         }
+    }
+
+    public final ActivityComponent getActivityComponent() {
+        return activityComponent;
     }
 }
