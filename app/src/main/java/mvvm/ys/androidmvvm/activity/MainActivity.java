@@ -1,15 +1,14 @@
 package mvvm.ys.androidmvvm.activity;
 
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.viewmodel.MainViewModel;
-import mvvm.ys.mvvmapp.activity.ViewModelActivity;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
-public class MainActivity extends ViewModelActivity {
+public class MainActivity extends BaseActivity {
 
     private MainViewModel mainViewModel;
 
@@ -22,7 +21,7 @@ public class MainActivity extends ViewModelActivity {
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        mainViewModel = new MainViewModel(getActivityComponent(), savedViewModelState);
+        mainViewModel = viewModelFactory.createMainViewModel(getActivityComponent(), savedViewModelState);
         return mainViewModel;
     }
 

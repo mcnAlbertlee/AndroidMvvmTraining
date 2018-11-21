@@ -7,9 +7,8 @@ import android.support.v4.app.FragmentManager;
 
 import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.fragment.AndroidVersionsFragment;
-import mvvm.ys.mvvmapp.activity.ViewModelActivity;
 
-public class AndroidVersionsActivity extends ViewModelActivity {
+public class AndroidVersionsActivity extends BaseActivity {
     private static final String TAG_VERSION_FRAGMENT = "versionFragment";
 
     @Override

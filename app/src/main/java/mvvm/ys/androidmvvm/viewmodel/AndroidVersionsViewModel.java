@@ -19,7 +19,7 @@ public class AndroidVersionsViewModel extends RecyclerViewViewModel {
 
     AndroidVersionsAdapter adapter;
 
-    public AndroidVersionsViewModel(@NonNull AndroidVersionsAdapter adapter,
+    AndroidVersionsViewModel(@NonNull AndroidVersionsAdapter adapter,
                                     @NonNull ActivityComponent activityComponent,
                                     @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);

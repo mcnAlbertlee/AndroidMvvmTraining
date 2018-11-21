@@ -13,7 +13,7 @@ import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 public class ClickCountViewModel extends ViewModel {
     int clicks;
 
-    public ClickCountViewModel(@NonNull ActivityComponent activityComponent,
+    ClickCountViewModel(@NonNull ActivityComponent activityComponent,
                                @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
 

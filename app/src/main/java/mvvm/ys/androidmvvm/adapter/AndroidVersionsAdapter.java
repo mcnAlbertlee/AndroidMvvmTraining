@@ -13,13 +13,18 @@ import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.databinding.ItemAndroidVersionBinding;
 import mvvm.ys.androidmvvm.model.AndroidVersion;
 import mvvm.ys.androidmvvm.viewmodel.AndroidVersionItemViewModel;
+import mvvm.ys.androidmvvm.viewmodel.ViewModelFactory;
 import mvvm.ys.mvvmapp.adapter.RecyclerViewAdapter;
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
 
 public class AndroidVersionsAdapter extends RecyclerViewAdapter<AndroidVersion, AndroidVersionItemViewModel> {
 
-    public AndroidVersionsAdapter(@NonNull ActivityComponent activityComponent) {
+    private final ViewModelFactory viewModelFactory;
+
+    public AndroidVersionsAdapter(ViewModelFactory viewModelFactory,
+                                  @NonNull ActivityComponent activityComponent) {
         super(activityComponent);
+        this.viewModelFactory = viewModelFactory;
     }
 
     private final ArrayList<AndroidVersion> items = new ArrayList<>();
@@ -31,7 +36,7 @@ public class AndroidVersionsAdapter extends RecyclerViewAdapter<AndroidVersion, 
                 .inflate(R.layout.item_android_version, parent, false);
 
         AndroidVersionItemViewModel viewModel =
-                new AndroidVersionItemViewModel(getActivityComponent());
+                viewModelFactory.createAndroidVersionItemViewModel(getActivityComponent());
 
         ItemAndroidVersionBinding binding = ItemAndroidVersionBinding.bind(itemView);
         binding.setViewModel(viewModel);

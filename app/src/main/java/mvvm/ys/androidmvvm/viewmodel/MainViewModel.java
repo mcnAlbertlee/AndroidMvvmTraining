@@ -12,7 +12,7 @@ import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public class MainViewModel extends ViewModel {
-    public MainViewModel(@NonNull ActivityComponent activityComponent,
+    MainViewModel(@NonNull ActivityComponent activityComponent,
                          @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
     }

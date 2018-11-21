@@ -12,11 +12,10 @@ import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.adapter.AndroidVersionsAdapter;
 import mvvm.ys.androidmvvm.databinding.FragmentAndroidVersionBinding;
 import mvvm.ys.androidmvvm.viewmodel.AndroidVersionsViewModel;
-import mvvm.ys.mvvmapp.fragment.ViewModelFragment;
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
-public class AndroidVersionsFragment extends ViewModelFragment {
+public class AndroidVersionsFragment extends BaseFragment {
 
     private AndroidVersionsViewModel androidVersionsViewModel;
 
@@ -32,8 +31,8 @@ public class AndroidVersionsFragment extends ViewModelFragment {
                                                @NonNull ActivityComponent activityComponent,
                                                @Nullable ViewModel.State savedViewModelState) {
 
-        androidVersionsViewModel = new AndroidVersionsViewModel(
-                new AndroidVersionsAdapter(activityComponent), activityComponent, savedViewModelState);
+        androidVersionsViewModel = viewModelFactory.createAndroidVersionsViewModel(
+                        new AndroidVersionsAdapter(viewModelFactory, activityComponent), activityComponent, savedViewModelState);
 
         FragmentAndroidVersionBinding binding = DataBindingUtil.bind(root);
         binding.setViewModel(androidVersionsViewModel);

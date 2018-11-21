@@ -8,17 +8,15 @@ import android.view.View;
 import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.databinding.ActivityClickCountBinding;
 import mvvm.ys.androidmvvm.viewmodel.ClickCountViewModel;
-import mvvm.ys.mvvmapp.activity.ViewModelActivity;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
-public class ClickCountActivity extends ViewModelActivity {
+public class ClickCountActivity extends BaseActivity {
     private ClickCountViewModel clickCountViewModel;
 
     @Nullable
     @Override
     protected ViewModel createViewModel(@Nullable ViewModel.State savedViewModelState) {
-        clickCountViewModel = new ClickCountViewModel(getActivityComponent(), savedViewModelState);
-
+        clickCountViewModel = viewModelFactory.createClickCountViewModel(getActivityComponent(), savedViewModelState);
         return clickCountViewModel;
     }
 
