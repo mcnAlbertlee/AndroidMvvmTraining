@@ -37,8 +37,4 @@ public class AndroidVersionsFragment extends ViewModelFragment {
 
         return androidVersionsViewModel;
     }
-
-    public void onClickHiBrianLee(View view) {
-        androidVersionsViewModel.onClickHiBrianLee();
-    }
 }

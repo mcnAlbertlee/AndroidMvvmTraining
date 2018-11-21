@@ -1,6 +1,6 @@
 package mvvm.ys.androidmvvm;
 
-import android.app.Application;
+import mvvm.ys.mvvmapp.MvvmApplication;
 
-public class AndroidMvvmApplication extends Application {
+public class AndroidMvvmApplication extends MvvmApplication {
 }
