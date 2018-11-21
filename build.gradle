@@ -24,6 +24,7 @@ ext {
     javaVersion = JavaVersion.VERSION_1_8
 
     daggerVersion = "2.14.1"
+    dexMakerVersion = '1.4'
 }
 
 allprojects {

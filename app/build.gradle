@@ -39,6 +39,10 @@ android {
     }
 }
 
+configurations {
+    androidTestCompile.exclude module: 'support-annotations'
+}
+
 dependencies {
     implementation project(':mvvmapp')
 
@@ -55,4 +59,13 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:2.23.4'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    /** ui 테스트를 위해 추가 */
+    androidTestImplementation 'com.android.support.test.espresso:espresso-contrib:3.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:3.0.2"
+    androidTestImplementation 'org.mockito:mockito-android:2.18.3'
+
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker:${rootProject.ext.dexMakerVersion}"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-dx:${rootProject.ext.dexMakerVersion}"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-mockito:${rootProject.ext.dexMakerVersion}"
 }
