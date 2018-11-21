@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mvvm.ys.androidmvvm.R;
+import mvvm.ys.androidmvvm.adapter.AndroidVersionsAdapter;
 import mvvm.ys.androidmvvm.databinding.FragmentAndroidVersionBinding;
 import mvvm.ys.androidmvvm.viewmodel.AndroidVersionsViewModel;
 import mvvm.ys.mvvmapp.fragment.ViewModelFragment;
@@ -30,7 +31,9 @@ public class AndroidVersionsFragment extends ViewModelFragment {
     protected ViewModel createAndBindViewModel(View root,
                                                @NonNull ActivityComponent activityComponent,
                                                @Nullable ViewModel.State savedViewModelState) {
-        androidVersionsViewModel = new AndroidVersionsViewModel(activityComponent, savedViewModelState);
+
+        androidVersionsViewModel = new AndroidVersionsViewModel(
+                new AndroidVersionsAdapter(activityComponent), activityComponent, savedViewModelState);
 
         FragmentAndroidVersionBinding binding = DataBindingUtil.bind(root);
         binding.setViewModel(androidVersionsViewModel);

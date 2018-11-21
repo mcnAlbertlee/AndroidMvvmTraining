@@ -6,6 +6,7 @@ import android.support.annotation.CallSuper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,7 @@ public class BaseTest extends Assert {
     @CallSuper
     @Before
     public void setup() {
+        MockitoAnnotations.initMocks(this);
         Mockito.reset(appContext, attachedActivity);
     }
 }
