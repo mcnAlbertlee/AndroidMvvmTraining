@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import mvvm.ys.mvvmapp.MvvmApplication;
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.inject.ActivityModule;
+import mvvm.ys.mvvmapp.inject.AppComponent;
 import mvvm.ys.mvvmapp.inject.DaggerActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
@@ -20,7 +22,11 @@ public abstract class ViewModelActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        AppComponent appComponent = ((MvvmApplication) getApplication()).getAppComponent();
+        appComponent.inject(this);
+
         activityComponent = DaggerActivityComponent.builder()
+                .appComponent(appComponent)
                 .activityModule(new ActivityModule(this))
                 .build();
 

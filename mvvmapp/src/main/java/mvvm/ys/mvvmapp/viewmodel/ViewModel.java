@@ -1,5 +1,6 @@
 package mvvm.ys.mvvmapp.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,13 +11,10 @@ import android.support.annotation.Nullable;
 import javax.inject.Inject;
 
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
+import mvvm.ys.mvvmapp.inject.AppContext;
 import mvvm.ys.mvvmapp.inject.AttachedActivity;
 
 public abstract class ViewModel extends BaseObservable {
-
-    @Inject
-    protected AttachedActivity attachedActivity;
-
     protected ViewModel(@NonNull ActivityComponent activityComponent,
                         @Nullable State savedInstanceState) {
         activityComponent.inject(this);
@@ -34,6 +32,13 @@ public abstract class ViewModel extends BaseObservable {
     @CallSuper
     public void onStop() {
     }
+
+    @Inject
+    @AppContext
+    protected Context appContext;
+
+    @Inject
+    protected AttachedActivity attachedActivity;
 
     public static class State implements Parcelable {
         protected State(ViewModel viewModel) {

@@ -6,8 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import mvvm.ys.mvvmapp.MvvmApplication;
 import mvvm.ys.mvvmapp.activity.ViewModelActivity;
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
+import mvvm.ys.mvvmapp.inject.AppComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public abstract class ViewModelFragment extends Fragment {
@@ -18,6 +20,13 @@ public abstract class ViewModelFragment extends Fragment {
     protected abstract ViewModel createAndBindViewModel(View root,
                                                         @NonNull ActivityComponent activityComponent,
                                                         @Nullable ViewModel.State savedViewModelState);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        AppComponent appComponent =
+                ((MvvmApplication) getActivity().getApplication()).getAppComponent();
+        appComponent.inject(this);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
