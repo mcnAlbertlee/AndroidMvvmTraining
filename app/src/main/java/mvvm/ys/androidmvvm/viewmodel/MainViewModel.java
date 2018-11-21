@@ -3,6 +3,9 @@ package mvvm.ys.androidmvvm.viewmodel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.net.URISyntaxException;
+
+import mvvm.ys.androidmvvm.R;
 import mvvm.ys.androidmvvm.activity.AndroidVersionsActivity;
 import mvvm.ys.androidmvvm.activity.ClickCountActivity;
 import mvvm.ys.mvvmapp.inject.ActivityComponent;
@@ -23,5 +26,10 @@ public class MainViewModel extends ViewModel {
     }
 
     public void onClickHiBrianLee() {
+        try {
+            attachedActivity.openUrl(appContext.getString(R.string.twitter_url));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

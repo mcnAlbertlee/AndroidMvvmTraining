@@ -1,6 +1,5 @@
 package mvvm.ys.androidmvvm.viewmodel;
 
-import android.content.Context;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -12,15 +11,11 @@ import mvvm.ys.mvvmapp.inject.ActivityComponent;
 import mvvm.ys.mvvmapp.viewmodel.ViewModel;
 
 public class ClickCountViewModel extends ViewModel {
-    private final Context appContext;
     int clicks;
 
-    public ClickCountViewModel(Context context,
-                               @NonNull ActivityComponent activityComponent,
+    public ClickCountViewModel(@NonNull ActivityComponent activityComponent,
                                @Nullable State savedInstanceState) {
         super(activityComponent, savedInstanceState);
-
-        appContext = context.getApplicationContext();
 
         if (savedInstanceState instanceof ClickCountState) {
             clicks = ((ClickCountState) savedInstanceState).clicks;
